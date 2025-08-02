@@ -56,7 +56,7 @@ router.get('/stats', authenticateToken, managerAccess, async (req, res) => {
     });
     
     // Maintenance requests
-    const pendingMaintenance = await Maintenance.countDocuments({ status: 'pending' });
+    const pendingMaintenance = await Maintenance.countDocuments({ status: { $in: ['pending', 'in_progress'] } });
     const urgentMaintenance = await Maintenance.countDocuments({ 
       status: { $in: ['pending', 'in_progress'] },
       priority: { $in: ['high', 'emergency'] }

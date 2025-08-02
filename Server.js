@@ -36,6 +36,17 @@ if (!fs.existsSync(routesPath)) {
   fs.mkdirSync(routesPath, { recursive: true });
 }
 
+// Register clients route
+const clientsRoutePath = path.join(routesPath, 'clients.js');
+if (fs.existsSync(clientsRoutePath)) {
+  try {
+    app.use('/api/clients', require('./routes/clients'));
+    console.log('✓ Clients routes loaded');
+  } catch (error) {
+    console.log('⚠ Error loading clients routes:', error.message);
+  }
+}
+
 // Load auth routes if they exist
 const authRoutePath = path.join(routesPath, 'auth.js');
 if (fs.existsSync(authRoutePath)) {
